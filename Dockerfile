@@ -8,7 +8,7 @@ WORKDIR /src
 COPY . .
 RUN dotnet restore
 
-WORKDIR "/"
+WORKDIR "./"
 RUN dotnet publish "WebAppDemo.csproj" -c Release -o /app
 
 FROM base AS final

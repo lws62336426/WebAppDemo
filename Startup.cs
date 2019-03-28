@@ -44,10 +44,12 @@ namespace WebAppDemo
 
             //app.UseHttpsRedirection();
 
-            app.UseRouting(routes =>
-            {
-                routes.MapApplication();
-            });
+            //app.UseRouting(routes =>
+            //{
+            //    routes.MapApplication();
+            //});
+
+            app.UseMvc();
 
             app.UseAuthorization();
         }
