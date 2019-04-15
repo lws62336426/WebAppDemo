@@ -42,6 +42,8 @@ namespace WebAppDemo
                 app.UseHsts();
             }
 
+            //app.UseMiddleware<EndpointTestMiddleware>();
+
             //app.UseHttpsRedirection();
 
             //app.UseRouting(routes =>
