@@ -13,26 +13,26 @@ namespace WebAppDemo.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values/5
-        //[HttpGet("{id}")]
-        //[Log("Get")]
-        //public ActionResult<string> Get(int id)
-        //{
-        //    return "value";
-        //}
+        //GET api/values/5
+        [HttpGet("{id}")]
+        [Log("Get")]
+        public ActionResult<string> Get(int id)
+        {
+            return "秋天不回来";
+        }
 
-        //[HttpGet("get2")]
-        //[Log("Get2")]
-        //public ActionResult<string> Get2(int id)
-        //{
-        //    return "value2";
-        //}
+        [HttpGet("get2")]
+        [Log("Get2")]
+        public ActionResult<string> Get2(int id)
+        {
+            return "value2";
+        }
 
         [HttpGet]
-        public ActionResult<string> Index()
+        public async Task<ActionResult<string>> IndexAsync()
         {
             Console.WriteLine("Thread.CurrentThread.ManagedThreadId1:" + Thread.CurrentThread.ManagedThreadId);
-            var result = Test4().Result;
+            var result = await Test7();
             Console.WriteLine("Thread.CurrentThread.ManagedThreadId4:" + Thread.CurrentThread.ManagedThreadId);
             return result;
         }
@@ -82,6 +82,41 @@ namespace WebAppDemo.Controllers
                 Console.WriteLine("Thread.CurrentThread.ManagedThreadId3:" + Thread.CurrentThread.ManagedThreadId);
                 return "xishuai";
             });
+        }
+
+        public static async Task<string> Test5()
+        {
+            Console.WriteLine("Thread.CurrentThread.ManagedThreadId2:" + Thread.CurrentThread.ManagedThreadId);
+            using (var client = new HttpClient())
+            {
+                var task = client.GetAsync("http://www.baidu.com");
+                var response = await task.ConfigureAwait(true);
+                Console.WriteLine("Thread.CurrentThread.ManagedThreadId3:" + Thread.CurrentThread.ManagedThreadId);
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        public static async Task<string> Test6()
+        {
+            Console.WriteLine("Thread.CurrentThread.ManagedThreadId2:" + Thread.CurrentThread.ManagedThreadId);
+            using (var client = new HttpClient())
+            {
+                var task = client.GetAsync("http://www.baidu.com");
+                var response = await task.ConfigureAwait(false);
+                Console.WriteLine("Thread.CurrentThread.ManagedThreadId3:" + Thread.CurrentThread.ManagedThreadId);
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        public static async Task<string> Test7()
+        {
+            Console.WriteLine("Thread.CurrentThread.ManagedThreadId2:" + Thread.CurrentThread.ManagedThreadId);
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync("http://www.baidu.com");
+                Console.WriteLine("Thread.CurrentThread.ManagedThreadId3:" + Thread.CurrentThread.ManagedThreadId);
+                return await response.Content.ReadAsStringAsync();
+            }
         }
     }
 }
