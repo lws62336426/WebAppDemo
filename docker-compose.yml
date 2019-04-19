@@ -3,5 +3,4 @@ services:
   web:
     build:
       context: ./
-      dockerfile: Dockerfile     
-      container_name: webapp-docker
+      dockerfile: Dockerfile
