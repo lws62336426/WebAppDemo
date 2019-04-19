@@ -14,11 +14,10 @@ namespace WebAppDemo.Controllers
     public class ValuesController : ControllerBase
     {
         //GET api/values/5
-        [HttpGet("{id}")]
-        [Log("Get")]
-        public ActionResult<string> Get(int id)
+        [HttpGet]
+        public ActionResult<string> Index(int id)
         {
-            return "秋天不回来";
+            return "秋天会回来";
         }
 
         [HttpGet("get2")]
@@ -28,14 +27,14 @@ namespace WebAppDemo.Controllers
             return "value2";
         }
 
-        [HttpGet]
-        public async Task<ActionResult<string>> IndexAsync()
-        {
-            Console.WriteLine("Thread.CurrentThread.ManagedThreadId1:" + Thread.CurrentThread.ManagedThreadId);
-            var result = await Test7();
-            Console.WriteLine("Thread.CurrentThread.ManagedThreadId4:" + Thread.CurrentThread.ManagedThreadId);
-            return result;
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<string>> IndexAsync()
+        //{
+        //    Console.WriteLine("Thread.CurrentThread.ManagedThreadId1:" + Thread.CurrentThread.ManagedThreadId);
+        //    var result = await Test7();
+        //    Console.WriteLine("Thread.CurrentThread.ManagedThreadId4:" + Thread.CurrentThread.ManagedThreadId);
+        //    return result;
+        //}
 
         //线程ID一致
         public static string Test()

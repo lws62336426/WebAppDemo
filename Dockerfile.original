@@ -3,15 +3,11 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-stretch AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0-stretch AS publish
 WORKDIR /src
-COPY ["WebAppDemo.csproj", ""]
-RUN dotnet restore 
 COPY . .
-WORKDIR "/src/"
-RUN dotnet build "WebAppDemo.csproj" -c Release -o /app
-
-FROM build AS publish
+RUN dotnet restore
+WORKDIR "./"
 RUN dotnet publish "WebAppDemo.csproj" -c Release -o /app
 
 FROM base AS final
